@@ -17,7 +17,7 @@ This system provides a framework for managing various neural processing tasks, f
 ## Class Structure
 
 ### Base Classes
-- **NPUTask**: Base task unit with fundamental properties
+#### **NPUTask**: Base task unit with fundamental properties
 - Task identification
 - Priority management
 - Resource tracking
@@ -25,27 +25,27 @@ This system provides a framework for managing various neural processing tasks, f
 - Power consumption calculations
 
 ### Specialized Tasks
-- **ComputationTask**: Resource allocation for computational workloads
+#### **ComputationTask**: Resource allocation for computational workloads
 - Processing unit management
 - Batch processing capabilities
 - Efficiency calculations
 
-- **VectorTask**: Vector mathematics operations
+#### **VectorTask**: Vector mathematics operations
 - Addition, multiplication, reduction operations
 - Performance optimization
 - Size-based scaling
 
-- **TensorTask**: Multi-dimensional data computations
+#### **TensorTask**: Multi-dimensional data computations
 - Dimension management
 - Quantization support (INT8, FLOAT32, BFLOAT16)
 - Sparsity handling
 
-- **MemoryTask**: Memory transfer operations
+#### **MemoryTask**: Memory transfer operations
 - Bandwidth management
 - Multiple memory type support
 - Transfer time calculations
 
-- **SyncTask**: Task synchronization
+#### **SyncTask**: Task synchronization
 - Multiple sync modes (Barrier, Pipeline, Wavefront, Async)
 - Frequency and buffer management
 - Latency control
