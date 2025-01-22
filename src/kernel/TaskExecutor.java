@@ -37,14 +37,16 @@ public class TaskExecutor {
     }
 
     public void cancelTask(String taskId) {
-        Future<?> future = runningTasks.get(taskId);
+        Long taskIdLong = Long.parseLong(taskId);
+        Future<?> future = runningTasks.get(taskIdLong);
         if (future != null) {
             future.cancel(true);
         }
     }
 
     public boolean isTaskRunning(String taskId) {
-        Future<?> future = runningTasks.get(taskId);
+        Long taskIdLong = Long.parseLong(taskId);
+        Future<?> future = runningTasks.get(taskIdLong);
         return future != null && !future.isDone();
     }
 

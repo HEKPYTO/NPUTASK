@@ -1,11 +1,10 @@
 package simulator;
 
 import task.NPUTask;
-import task.compute.ComputationTask;
-import task.compute.advanced.TensorTask;
-import task.compute.advanced.VectorTask;
-import task.memory.MemoryTask;
-import task.sync.SyncTask;
+import task.ComputationTask;
+import task.TensorTask;
+import task.VectorTask;
+import task.MemoryTask;
 import kernel.TaskExecutor;
 import status.*;
 
@@ -25,7 +24,6 @@ public class NPUSimulation {
 
         simulateMixedWorkload();
 
-        // Cleanup
         executor.shutdown();
         System.out.println("\n=== Simulation Complete ===");
     }
@@ -112,25 +110,6 @@ public class NPUSimulation {
 
     private static void simulateMixedWorkload() {
         System.out.println("\n--- Mixed Workload ---");
-
-        SyncTask syncTask = new SyncTask(
-                getNextTaskId(),
-                130,     // High priority
-                1024,    // Medium memory size
-                2000.0,  // High frequency
-                128,     // Large buffer
-                Sync.PIPELINE
-        );
-
-        System.out.println("\nInitiating Sync Task:");
-        System.out.printf("Task ID: %d, Mode: %s, Buffer Size: %d\n",
-                syncTask.getTaskId(),
-                syncTask.getMode(),
-                syncTask.getBufferSize());
-        System.out.printf("Estimated execution time: %d ms\n", syncTask.getExecutionTime());
-
-        syncTask.execute();
-        waitForTask(syncTask);
 
         ComputationTask compTask = new ComputationTask(
                 getNextTaskId(),
