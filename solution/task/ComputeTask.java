@@ -1,11 +1,11 @@
 package task;
 
-public class ComputationTask extends NPUTask {
+public class ComputeTask extends NPUTask {
     private int computeUnits;
     private int batchSize;
     private double efficiency;
 
-    public ComputationTask(long taskId, int priority, int memorySize, int computeUnits, int batchSize) {
+    public ComputeTask(long taskId, int priority, int memorySize, int computeUnits, int batchSize) {
         super(taskId, priority, memorySize);
         setComputeUnits(computeUnits);
         setBatchSize(batchSize);

@@ -105,7 +105,7 @@ public class TensorTaskValidationTest {
     }
 
     @Test
-    @DisplayName("Task should maintain inherited ComputationTask behavior")
+    @DisplayName("Task should maintain inherited ComputeTask behavior")
     void testInheritedBehavior() {
         task.setComputeUnits(0);
         assertEquals(1, task.getComputeUnits());

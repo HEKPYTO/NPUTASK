@@ -7,12 +7,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import status.Status;
-import task.ComputationTask;
+import task.ComputeTask;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComputationTaskValidationTest {
-    private ComputationTask task;
+public class ComputeTaskValidationTest {
+    private ComputeTask task;
     private static final long TASK_ID = 12345L;
     private static final int INITIAL_PRIORITY = 120;
     private static final int INITIAL_MEMORY_SIZE = 2048;
@@ -21,7 +21,7 @@ public class ComputationTaskValidationTest {
 
     @BeforeEach
     void setUp() {
-        task = new ComputationTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
+        task = new ComputeTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
                 INITIAL_COMPUTE_UNITS, INITIAL_BATCH_SIZE);
     }
 
@@ -101,7 +101,7 @@ public class ComputationTaskValidationTest {
     @Test
     @DisplayName("Execution time should consider compute and batch factors")
     void testExecutionTimeCalculation() {
-        ComputationTask baseTask = new ComputationTask(TASK_ID, INITIAL_PRIORITY,
+        ComputeTask baseTask = new ComputeTask(TASK_ID, INITIAL_PRIORITY,
                 INITIAL_MEMORY_SIZE, 1, 16);
         long baseTime = baseTask.getExecutionTime();
 

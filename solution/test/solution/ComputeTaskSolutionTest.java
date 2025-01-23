@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import status.Status;
-import task.ComputationTask;
+import task.ComputeTask;
 
 import java.util.concurrent.*;
 import java.util.ArrayList;
@@ -14,8 +14,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ComputationTaskSolutionTest {
-    private ComputationTask task;
+public class ComputeTaskSolutionTest {
+    private ComputeTask task;
     private static final long TASK_ID = 9876L;
     private static final int INITIAL_PRIORITY = 120;
     private static final int INITIAL_MEMORY_SIZE = 2048;
@@ -24,7 +24,7 @@ public class ComputationTaskSolutionTest {
 
     @BeforeEach
     void setUp() {
-        task = new ComputationTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
+        task = new ComputeTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
                 INITIAL_COMPUTE_UNITS, INITIAL_BATCH_SIZE);
     }
 
@@ -133,7 +133,7 @@ public class ComputationTaskSolutionTest {
         List<Double> efficiencies = new ArrayList<>();
 
         for (int i = 0; i < iterations; i++) {
-            ComputationTask loadTask = new ComputationTask(i, INITIAL_PRIORITY,
+            ComputeTask loadTask = new ComputeTask(i, INITIAL_PRIORITY,
                     INITIAL_MEMORY_SIZE, INITIAL_COMPUTE_UNITS, INITIAL_BATCH_SIZE);
             loadTask.execute();
             efficiencies.add(loadTask.getEfficiency());

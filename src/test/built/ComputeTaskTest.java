@@ -7,12 +7,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import status.Status;
-import task.ComputationTask;
+import task.ComputeTask;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ComputationTaskTest {
-    private ComputationTask task;
+class ComputeTaskTest {
+    private ComputeTask task;
     private static final long TASK_ID = 12345L;
     private static final int INITIAL_PRIORITY = 120;
     private static final int INITIAL_MEMORY_SIZE = 2048;
@@ -21,7 +21,7 @@ class ComputationTaskTest {
 
     @BeforeEach
     void setUp() {
-        task = new ComputationTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
+        task = new ComputeTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE,
                 INITIAL_COMPUTE_UNITS, INITIAL_BATCH_SIZE);
     }
 
@@ -102,7 +102,7 @@ class ComputationTaskTest {
     @DisplayName("Execution time should be calculated correctly with compute and batch factors")
     void testExecutionTimeCalculation() {
         // First get the base execution time by creating a task with compute units = 1 and batch size = 16
-        ComputationTask baseTask = new ComputationTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE, 1, 16);
+        ComputeTask baseTask = new ComputeTask(TASK_ID, INITIAL_PRIORITY, INITIAL_MEMORY_SIZE, 1, 16);
         long baseExecutionTime = baseTask.getExecutionTime();
 
         // different combinations
@@ -149,7 +149,7 @@ class ComputationTaskTest {
     })
     @DisplayName("Constructor should handle different valid combinations")
     void testConstructorWithDifferentCombinations(int computeUnits, int batchSize) {
-        ComputationTask newTask = new ComputationTask(TASK_ID, INITIAL_PRIORITY,
+        ComputeTask newTask = new ComputeTask(TASK_ID, INITIAL_PRIORITY,
                 INITIAL_MEMORY_SIZE, computeUnits, batchSize);
 
         assertEquals(computeUnits, newTask.getComputeUnits());
