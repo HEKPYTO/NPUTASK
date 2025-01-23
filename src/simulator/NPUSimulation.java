@@ -1,7 +1,6 @@
 package simulator;
 
 import task.*;
-import task.ComputeTask;
 import kernel.TaskExecutor;
 import status.*;
 
@@ -16,9 +15,7 @@ public class NPUSimulation {
         System.out.println("=== Starting NPU Workload Simulation ===\n");
 
         simulateMLTrainingWorkload();
-
         simulateDataTransferWorkload();
-
         simulateMixedWorkload();
 
         executor.shutdown();
@@ -48,33 +45,6 @@ public class NPUSimulation {
 
         tensorTask.execute();
         waitForTask(tensorTask);
-
-        // Create vector operations
-        VectorTask[] vectorTasks = new VectorTask[3];
-        Operation[] operations = {Operation.ADD, Operation.MUL, Operation.REDUCE};
-
-        System.out.println("\nInitiating Vector Operations:");
-        for (int i = 0; i < operations.length; i++) {
-            vectorTasks[i] = new VectorTask(
-                    getNextTaskId(),
-                    110,    // Medium priority
-                    1024,   // Medium memory size
-                    4,      // Standard compute units
-                    16,     // Standard batch size
-                    2048,   // Large vector size
-                    operations[i]
-            );
-
-            System.out.printf("\nVector Task %d:\n", i + 1);
-            System.out.printf("Task ID: %d, Operation: %s, Vector Size: %d\n",
-                    vectorTasks[i].getTaskId(),
-                    vectorTasks[i].getVectorOperation(),
-                    vectorTasks[i].getVectorSize());
-            System.out.printf("Estimated execution time: %d ms\n", vectorTasks[i].getExecutionTime());
-
-            vectorTasks[i].execute();
-            waitForTask(vectorTasks[i]);
-        }
     }
 
     private static void simulateDataTransferWorkload() {
@@ -149,11 +119,6 @@ public class NPUSimulation {
         double basePower = task.getPowerConsumption();
         switch (task) {
             case TensorTask t -> basePower *= (t.getTensorType() == Quantization.FLOAT32 ? 1.5 : 1.0);
-            case VectorTask v -> basePower *= switch (v.getVectorOperation()) {
-                case ADD -> 1.0;
-                case MUL -> 1.2;
-                case REDUCE -> 1.5;
-            };
             case MemoryTask m -> basePower *= switch (m.getMemoryType()) {
                 case CACHE -> 0.5;
                 case RAM -> 1.0;
@@ -170,5 +135,5 @@ public class NPUSimulation {
         return taskIdCounter++;
     }
 
-    // Ni dieu, ni césar, ni tribun,
+    // There is more, but our short time have ended.
 }
