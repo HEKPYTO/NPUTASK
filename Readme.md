@@ -2,6 +2,8 @@
 
 A comprehensive Neural Processing Unit (NPU) task management system for handling diverse computational needs in neural network operations.
 
+**Note**: The final version of this project does not include the `VectorTask` class, as it was removed and developed independently. The released version is available in the GitHub release under `solution-inheritance-2024-2.zip`.
+
 ## Overview
 This system provides a framework for managing various neural processing tasks, from basic vector calculations to complex tensor operations, while optimizing resource utilization and maintaining accurate performance metrics.
 
