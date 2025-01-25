@@ -1,0 +1,57 @@
+name: Create Release
+
+on:
+  workflow_run:
+    workflows: ["Java Tests"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Prepare Build Directories
+        run: |
+          mkdir -p student solution
+          rsync -av --delete \
+            --exclude 'test/build/' \
+            --exclude 'test/solution/' \
+            --exclude 'task/' \
+            src/ student/
+          
+          cd student && zip -r ../student.zip . && cd ..
+          
+          rsync -av --delete \
+            --exclude 'test/build/' \
+            --exclude 'test/validate/' \
+            src/ solution/
+          
+          cd solution && zip -r ../solution.zip . && cd ..
+
+      - name: Create Zip Archives
+        run: |
+          zip -r student.zip student
+          zip -r solution.zip solution
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            student.zip
+            solution.zip
+          tag_name: v${{ github.run_number }}
+          name: Build V${{ github.run_number }}
+          body: This release contains student and solution packages.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup
+        run: rm -rf student.zip solution.zip
