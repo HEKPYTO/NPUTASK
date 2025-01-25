@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir -p student solution
           rsync -av --delete \
-            --exclude 'test/build/' \
+            --exclude 'test/built/' \
             --exclude 'test/solution/' \
             --exclude 'task/' \
             src/ student/
@@ -31,8 +31,8 @@ jobs:
           cd student && zip -r ../student.zip . && cd ..
           
           rsync -av --delete \
-            --exclude 'test/build/' \
-            --exclude 'test/validate/' \
+            --exclude 'test/built/' \
+            --exclude 'test/validation/' \
             src/ solution/
           
           cd solution && zip -r ../solution.zip . && cd ..
